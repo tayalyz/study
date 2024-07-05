@@ -9,18 +9,18 @@ public class Main {
         String milkKcal = "13.5"; // калорийность молока
 
         float pixelChoice = getMinKcalsSum(beefKcal, chickenKcal, creamKcal, milkKcal);
-        float totalKcal = int.parseInt(pixelKcalDay) + pixelChoice;
+        float totalKcal = Integer.parseInt(pixelKcalDay) + pixelChoice;
         checkKcal(totalKcal);
     }
 
     private static Float getMinKcalsSum(String firstDishKcal, String secondDishKcal, String firstDesert, String secondDesert) {
-        float minDishKcal = ... // вычислите минимальную калорийность основного блюда
-        float minDesertKcal = ... // вычислите минимальную калорийность десерта
+        float minDishKcal = Math.min(Float.parseFloat(firstDishKcal), Float.parseFloat(secondDishKcal)); // вычислите минимальную калорийность основного блюда
+        float minDesertKcal = Math.min(Float.parseFloat(firstDesert), Float.parseFloat(secondDesert)); // вычислите минимальную калорийность десерта
         return minDishKcal + minDesertKcal;
     }
 
     private static void checkKcal(float catKcal) {
-        if (catKcal == null) {
+        if (catKcal == 0f) {
             System.out.println("Что-то пошло не так");
         } else {
             System.out.println("Калорийность рациона Пикселя за день: " + catKcal);

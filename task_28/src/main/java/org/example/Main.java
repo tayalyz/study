@@ -2,10 +2,10 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        ... roubles = 5000; // сумма на счету
-        ... yearRate = 4; // годовая процентная ставка
-        ... numOfMonth = 36; // количество месяцев, на который открыт вклад
-        ... monthRefill = 1000; // ежемесячное пополнение
+        double roubles = 5000d; // сумма на счету
+        float yearRate = 4f; // годовая процентная ставка
+        int numOfMonth = 36; // количество месяцев, на который открыт вклад
+        double monthRefill = 1000; // ежемесячное пополнение
 
         ... monthRate = ... // вычислите месячную процентную ставку
 
@@ -17,7 +17,7 @@ public class Main {
 
         System.out.println("Через " + numOfMonth + " месяцев накопится " + roubles + " рублей");
 
-        if (...) { // определите, удалось ли достичь цели
+        if () { // определите, удалось ли достичь цели
             System.out.println("Ура! Можно идти в магазин за новым объективом!");
         } else {
             System.out.println("Нужно ещё немного подкопить.");

@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -33,15 +35,8 @@ public class Main {
 
         System.out.println("Поздравляем, аккаунт для пользователя " + user.name + " создан.");
         System.out.println("Открытые счета:");
-        if (user.moneyRUB == 0.0) {
-            System.out.println("- RUB");
-        }
-        if (user.moneyUSD == 0.0) {
-            System.out.println("- USD");
-        }
-        if (user.moneyEUR == 0.0) {
-            System.out.println("- EUR");
-        }
-
+        System.out.println(user.moneyRUB == null ? "Счета в рублях нет" : user.moneyRUB + "- RUB");
+        System.out.println(user.moneyUSD == null ? "Счета в долларах нет" : user.moneyUSD + "- USD");
+        System.out.println(user.moneyEUR == null ? "Счета в евро нет" : user.moneyRUB + "- EUR");
     }
 }

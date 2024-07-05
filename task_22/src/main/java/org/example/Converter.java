@@ -1,3 +1,5 @@
+package org.example;
+
 public class Converter {
     double rateUSD;
     double rateEUR;
