@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.Random;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         CarProperties userCarProperties =
@@ -13,9 +16,9 @@ public class Main {
         System.out.println("Давно тебя не было в Гонках!");
         System.out.println("Характеристики твоего автомобиля:");
         // Напечатайте характеристики автомобиля игрока
-        System.out.println("- Максимальная скорость: " + ...);
-        System.out.println("- Ускорение: " + ...);
-        System.out.println("- Закись азота: " + ...);
+        System.out.println("- Максимальная скорость: " + userCarProperties.maxSpeed);
+        System.out.println("- Ускорение: " + userCarProperties.acceleration);
+        System.out.println("- Закись азота: " + userCarProperties.nitroLevel);
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -29,20 +32,20 @@ public class Main {
                 Car opponentCar = generateOpponentCar();
                 System.out.println("Характеристики автомобиля соперника:");
                 // Напечатайте характеристики автомобиля соперника
-                System.out.println("- Максимальная скорость: " + ...);
-                System.out.println("- Ускорение: " + ...);
-                System.out.println("- Закись азота: " + ...);
+                System.out.println("- Максимальная скорость: " + opponentCar.maxSpeed);
+                System.out.println("- Ускорение: " + opponentCar.acceleration);
+                System.out.println("- Закись азота: " + opponentCar.nitroLevel);
 
                 int distance = generateInt(5, 70);
                 System.out.println("Гонка будет проходить на дистанции: " + distance + " км.");
 
                 int points = makeRace(userCar, opponentCar, distance);
-                changePointAndDistance(...); // передайте в метод аргументы
+                changePointAndDistance(userCar, points, distance); // передайте в метод аргументы
 
             } else if (command == 2) {
                 // Напечатайте количество заработанных очков и пройденных километров
-                System.out.println("- Количество заработанных очков: " + ...);
-                System.out.println("- Пройдено километров на этом авто: " + ...);
+                System.out.println("- Количество заработанных очков: " + userCar.score);
+                System.out.println("- Пройдено километров на этом авто: " + userCar.kilometersTravelled);
             } else if (command == 3) {
                 System.out.println("Увидимся!");
                 break;
@@ -50,34 +53,39 @@ public class Main {
         }
     }
 
-    private static void changePointAndDistance(...) { // реализуйте метод
+    private static void changePointAndDistance(Car userCar, int points, int distance) { // реализуйте метод
         // В результате выполнения метода у userCar количество очков должно увеличиться
         // на значение points, пройденное расстояние - на значение distance.
-        ...
+        userCar.score += points;
+        userCar.kilometersTravelled += distance;
     }
 
     private static int makeRace(Car userCar, Car opponentCar, int distance) {
         printFlag();
         // Напишите логические выражения для определения победителя
-        boolean shortRaceWin = ... // на короткой дистанции
-        boolean longRaceWin = ... // на длинной дистанции
+        boolean shortRaceWin = distance <= 15; // на короткой дистанции
+        boolean longRaceWin = distance > 50; // на длинной дистанции
 
-        if (...) { // если победил на короткой или на длинной дистанции
+
+        if (shortRaceWin && userCar.acceleration > opponentCar.acceleration) { // если победил на короткой или на длинной дистанции
             System.out.println("Вы выиграли!");
+            return (int) userCar.acceleration;
+        }
+        if (longRaceWin && userCar.maxSpeed > opponentCar.maxSpeed) {
             // Найдите и верните наибольшее из максимальных скоростей
-            ...
-            return ...;
-        } else if (...) { // Уровни ускорения должны быть равны
+            System.out.println("Вы выиграли!");
+            return (int) userCar.maxSpeed;
+        } else if (userCar.acceleration == opponentCar.acceleration) { // Уровни ускорения должны быть равны
             System.out.println("Ничья!");
-            return ...
+            return 0;
         } else {
             // Сравните уровни закиси азота
-            if (...) {
+            if (userCar.nitroLevel > opponentCar.nitroLevel) {
                 System.out.println("Вы проиграли, но благодаря закиси азота сохранили очки.");
-                return ...;
+                return 0;
             } else {
                 System.out.println("Вы проиграли(");
-                return ...;
+                return -100;
             }
         }
     }
@@ -117,10 +125,10 @@ public class Main {
 
     private static Car createCarByProperties(CarProperties carProperties) {
         // Конвертируйте параметры в нужные типы
-        double maxSpeed = ...;
-        float acceleration = ...;
-        int score = ...;
-        Integer nitroLevel = ...;
+        double maxSpeed = Double.parseDouble(carProperties.maxSpeed);
+        float acceleration = (float) carProperties.acceleration;
+        int score = carProperties.initialScore;
+        Integer nitroLevel = carProperties.nitroLevel;
 
         return new Car( // Метод возвращает экземпляр класса Car
                 maxSpeed,
@@ -132,6 +140,10 @@ public class Main {
 
     private static Integer getNitroLevel(int nitroLevel) {
         // Пропишите логику по конвертации параметра nitroLevel
-        ...
+        if (nitroLevel == 0) {
+            return null;
+        } else {
+            return nitroLevel;
+        }
     }
 }
